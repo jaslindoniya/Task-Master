@@ -1,0 +1,54 @@
+// server.js
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// MongoDB connection
+mongoose.connect('mongodb://127.0.0.1:27017/taskmaster', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log('MongoDB connected'))
+  .catch(err => console.log(err));
+
+// Task Schema
+const taskSchema = new mongoose.Schema({
+    title: { type: String, required: true },
+    description: String,
+    completed: { type: Boolean, default: false }
+});
+
+const Task = mongoose.model('Task', taskSchema);
+
+// Routes
+// Get all tasks
+app.get('/tasks', async (req, res) => {
+    const tasks = await Task.find();
+    res.json(tasks);
+});
+
+// Create a task
+app.post('/tasks', async (req, res) => {
+    const task = new Task(req.body);
+    await task.save();
+    res.json(task);
+});
+
+// Update a task
+app.put('/tasks/:id', async (req, res) => {
+    const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(task);
+});
+
+// Delete a task
+app.delete('/tasks/:id', async (req, res) => {
+    await Task.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Task deleted' });
+});
+
+// Start server
+const PORT = 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
