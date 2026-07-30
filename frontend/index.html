@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Way to Success - Elevate Your Career</title>
+    <!-- Add standard modern styles/fonts if needed, styling is handled by custom styling and Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Configure tailwind theme extensions to enable smooth customization
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#f0f7ff',
+                100: '#e0effe',
+                500: '#0066cc',
+                600: '#0052a3',
+                700: '#003d7a',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Smooth animated background transitions */
+      body {
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
